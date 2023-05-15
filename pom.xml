@@ -7,11 +7,28 @@
   <version>1.0</version>
   <name>roman-number</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <java.version>11</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
   <dependencies>
+    <!-- Framework per i test -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Framework per i mockup -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-inline</artifactId>
+      <version>4.5.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
