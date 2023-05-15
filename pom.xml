@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>it.unipd.mtss</groupId>
@@ -31,9 +32,16 @@
       <version>4.5.1</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- Plugin per il calcolo della code coverage -->
+    <dependency>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <version>0.8.10</version>
+    </dependency>
   </dependencies>
 
-   <build>
+  <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -54,6 +62,49 @@
           </execution>
         </executions>
       </plugin>
+
+      <!-- Plugin per il report -->
+      <plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.10</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generate-code-coverage-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+      <!-- Plugin per generare la badge di checkstyle -->
+      <plugin>
+        <groupId>com.github.bordertech.buildtools</groupId>
+        <artifactId>badger</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>badges</goal>
+            </goals>
+            <configuration>
+              <skip>${badges.skip}</skip>
+              <outputDir>.github/badges</outputDir>
+              <inputFiles>
+                <inputFile>target/checkstyle-result.xml</inputFile>
+              </inputFiles>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
-</build>
+  </build>
 </project>
